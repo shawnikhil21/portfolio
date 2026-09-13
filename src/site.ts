@@ -2,7 +2,7 @@ export const site = {
   name: "Nikhil Shaw",
   jobTitle: "Client Solutions Manager",
   company: "Aisles & Shelves",
-  url: "https://nikhilshaw21-grow.github.io/LINKEDIN-POST",
+  url: "https://shawnikhil21.github.io/portfolio",
   title: "Nikhil Shaw | Client Solutions Manager, Aisles & Shelves",
   description:
     "Client Solutions Manager at Aisles & Shelves. On-ground retail merchandising, consumer sampling, rural activation, field operations, and client servicing.",
@@ -41,7 +41,7 @@ export const site = {
     "Field team leadership",
     "Process and reporting",
   ],
-  ogImage: "https://nikhilshaw21-grow.github.io/LINKEDIN-POST/og-image.jpg",
+  ogImage: "https://shawnikhil21.github.io/portfolio/og-image.jpg",
   locale: "en_IN",
   linkedin:
     "https://www.linkedin.com/search/results/people/?keywords=Nikhil%20Shaw%20Client%20Solutions%20Manager%20Aisles%20Shelves",

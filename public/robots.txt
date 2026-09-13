@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nikhilshaw21-grow.github.io/LINKEDIN-POST/sitemap.xml
+Sitemap: https://shawnikhil21.github.io/portfolio/sitemap.xml
