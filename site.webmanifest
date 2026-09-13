@@ -1,0 +1,17 @@
+{
+  "name": "Nikhil Shaw",
+  "short_name": "Nikhil Shaw",
+  "description": "Client Solutions Manager at Aisles & Shelves — retail merchandising, consumer sampling, rural activation, and field operations.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3a2f2a",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

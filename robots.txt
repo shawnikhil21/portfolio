@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nikhilshaw21-grow.github.io/LINKEDIN-POST/sitemap.xml
