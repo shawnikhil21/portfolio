@@ -57,9 +57,17 @@ function Photo({
   );
 }
 
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
+  { href: "#learning", label: "Learning" },
+  { href: "#numbers", label: "Numbers" },
+] as const;
+
 export default function App() {
   const [pillar, setPillar] = useState<(typeof pillars)[number]>(pillars[0]);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [heroMotion, setHeroMotion] = useState({ y: 0, opacity: 1 });
 
   useEffect(() => {
@@ -75,6 +83,23 @@ export default function App() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setMenuOpen(false);
+      }
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   const selectPillar = (direction: 1 | -1) => {
@@ -96,39 +121,65 @@ export default function App() {
             : "bg-transparent py-4"
         }`}
       >
-        <div className="relative mx-auto max-w-[1400px] min-h-[3.25rem]">
-          <a
-            href="#top"
-            className="relative z-10 inline-block max-w-[min(100%,14rem)] leading-none text-ink sm:max-w-none"
-            aria-label="Nikhil Shaw, Client Solutions Manager — back to top"
-          >
-            <span
-              className={`block font-bold tracking-tight transition-all duration-300 ${
-                scrolled
-                  ? "text-[1.35rem] sm:text-[1.55rem]"
-                  : "text-[1.7rem] sm:text-[2.05rem]"
-              }`}
+        <div className="mx-auto max-w-[1400px]">
+          <div className="site-header">
+            <a
+              href="#top"
+              className="site-brand min-w-0 leading-none text-ink"
+              aria-label="Nikhil Shaw, Client Solutions Manager — back to top"
             >
-              Nikhil Shaw
-            </span>
-            <span className="mt-1 block text-[0.78rem] font-medium tracking-wide text-ink-soft sm:text-[0.88rem]">
-              Client Solutions Manager
-            </span>
-          </a>
+              <span
+                className={`site-brand-name block font-bold tracking-tight transition-all duration-300 ${
+                  scrolled ? "is-compact" : ""
+                }`}
+              >
+                Nikhil Shaw
+              </span>
+              <span className="site-brand-role mt-1 block font-medium tracking-wide text-ink-soft">
+                Client Solutions Manager
+              </span>
+            </a>
+
+            <nav className="nav-cluster site-nav" aria-label="Primary">
+              {navItems.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="site-header-end">
+              <button
+                type="button"
+                className="site-menu-toggle"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-nav"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+                <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
+              </button>
+              <a href="#connect" className="pill site-cta" onClick={() => setMenuOpen(false)}>
+                Let’s connect
+              </a>
+            </div>
+          </div>
 
           <nav
-            className="nav-cluster absolute top-0 left-1/2 z-10 -translate-x-1/2"
-            aria-label="Primary"
+            id="mobile-nav"
+            className={`site-mobile-nav ${menuOpen ? "is-open" : ""}`}
+            aria-label="Mobile"
+            hidden={!menuOpen}
           >
-            <a href="#about">About</a>
-            <a href="#work">Work</a>
-            <a href="#learning">Learning</a>
-            <a href="#numbers">Numbers</a>
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            ))}
+            <a href="#connect" className="site-mobile-connect" onClick={() => setMenuOpen(false)}>
+              Let’s connect
+            </a>
           </nav>
-
-          <a href="#connect" className="pill absolute top-0 right-0 z-10">
-            Let’s connect
-          </a>
         </div>
       </header>
 
@@ -144,7 +195,7 @@ export default function App() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-sky/20 via-transparent to-white" />
 
-          <div className="relative mx-auto flex min-h-[100svh] max-w-[1400px] items-center px-5 pb-20 pt-36 sm:px-8 lg:px-10">
+          <div className="relative mx-auto flex min-h-[100svh] max-w-[1400px] items-end px-5 pb-20 pt-40 sm:items-center sm:px-8 sm:pt-36 lg:px-10">
             <div
               className="hero-stage max-w-[820px]"
               style={{
@@ -153,12 +204,13 @@ export default function App() {
               }}
             >
               <article className="hero-card">
-                <p className="eyebrow text-ink-soft">Apr 2026 — Present · Aisles &amp; Shelves</p>
-                <h1 className="hero-title mt-5">
+                <h1 className="hero-title">
                   Curious about customers.
                   <br />
                   Serious about marketing.
                 </h1>
+                <p className="eyebrow mt-6 text-ink-soft">Apr 2026 — Present</p>
+                <p className="hero-company">{site.company}</p>
               </article>
             </div>
           </div>
